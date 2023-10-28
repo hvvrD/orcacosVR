@@ -31,14 +31,15 @@ public class BarLogic : MonoBehaviour
     [SerializeField] private bool isCurve;
     [SerializeField] private bool isYieldNull;
     [SerializeField] private AnimationCurve curve;
-    float time = 0f;
+    [ShowOnly][SerializeField] float time = 0f;
+    [ShowOnly][SerializeField] bool decharging;
 
     public bool IsReady { get; private set; }
 
     private void Start()
     {
         GameManager.Instance.OnModeSwitch += SetActive;
-        GameManager.Instance.OnCharge += !isCurve ? SetCharge : SetChargeCurve;
+        GameManager.Instance.OnCharge += SetCharge;
 
         //Init setup
         IsReady = false;
@@ -57,7 +58,7 @@ public class BarLogic : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.Instance.OnModeSwitch -= SetActive;
-        GameManager.Instance.OnCharge -= !isCurve ? SetCharge : SetChargeCurve;
+        GameManager.Instance.OnCharge -= SetCharge;
     }
 
     private void SetCharge(bool charge)
@@ -66,29 +67,25 @@ public class BarLogic : MonoBehaviour
         {
             //Debug.Log($"{name}, charge");
             StopAllCoroutines();
-            StartCoroutine(IESetCharge(chargeAddRate, chargeAddValue, () => chargeValue <= chargeMaxValue));
-        }
-        else
-        {
-            //Debug.Log($"{name}, de-charge");
-            StopAllCoroutines();
-            StartCoroutine(IESetCharge(chargeAddRate, -chargeAddValue, () => chargeValue >= 0));
-        }
-    }
 
-    private void SetChargeCurve(bool charge)
-    {
-        if (charge && isActive)
-        {
-            //Debug.Log($"{name}, charge");
-            StopAllCoroutines();
-            StartCoroutine(IESetChargeCurve(chargeAddRateCurve, 1, () => chargeValueCurve < chargeMaxValue));
+            if (!isCurve)
+                StartCoroutine(IESetCharge(chargeAddRate, chargeAddValue, () => chargeValue <= chargeMaxValue));
+            else
+                StartCoroutine(IESetChargeCurve(chargeAddRateCurve, 1, () => chargeValueCurve < chargeMaxValue));
+
+            decharging = true;
         }
-        else
+        else if (decharging)
         {
             //Debug.Log($"{name}, de-charge");
             StopAllCoroutines();
-            StartCoroutine(IESetChargeCurve(chargeAddRateCurve, -1, () => chargeValueCurve > 0));
+
+            if (!isCurve)
+                StartCoroutine(IESetCharge(chargeAddRate, -chargeAddValue, () => chargeValue >= 0));
+            else
+                StartCoroutine(IESetChargeCurve(chargeAddRateCurve, -1, () => chargeValueCurve > 0));
+
+            decharging = false;
         }
     }
 

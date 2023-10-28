@@ -48,20 +48,14 @@ public class GameManager : Singleton<GameManager>
         {
             OnCharge?.Invoke(charge = true);
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && charge)
         {
             OnCharge?.Invoke(charge = false);
         }
 
         // Right click to toggle modes
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !charge)
         {
-            OnCharge?.Invoke(charge = false);
-
-            if (Input.GetMouseButton(0))
-                OnCharge?.Invoke(charge = true);
-
-
             toggle = !toggle;
             if (toggle)
             {
