@@ -528,12 +528,46 @@ MonoBehaviour:
   barMode: 0
   inactiveIcon: {fileID: 0}
   activeIcon: {fileID: 0}
+  barColour: {r: 0.20000002, g: 0.82745105, b: 0.9450981, a: 1}
   contentBar: {fileID: 2680115810197788868}
   contentIcon: {fileID: 604803367992030726}
   contentIconActive: {fileID: 5044254935855159646}
   contentText:
   - {fileID: 3083475158845856031}
   - {fileID: 2379927589371601678}
+  isActive: 0
+  chargeAddValue: 1
+  chargeMaxValue: 100
+  chargeAddRate: 0.01
+  chargeAddRateCurve: 0.02
+  chargeValue: 0
+  chargeValueCurve: 0
+  isCurve: 1
+  isYieldNull: 0
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6761436355453655411
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.8721261, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

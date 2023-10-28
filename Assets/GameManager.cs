@@ -20,9 +20,9 @@ public enum ControlMode
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private UIManager uiManager;
-    private bool userInterface;
-    private bool toggle;
-    private bool charge;
+    [ShowOnly][SerializeField] private bool userInterface;
+    [ShowOnly][SerializeField] private bool toggle;
+    [ShowOnly][SerializeField] private bool charge;
 
     public UnityAction<ControlMode> OnModeSwitch;
     public UnityAction<bool> OnCharge;
