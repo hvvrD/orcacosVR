@@ -2,19 +2,22 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// - Calibration
-/// - Detection for focus - idea (squint eyes)
-/// - Detection for calm - idea (relax eyes)
-/// </summary>
-
 public enum ControlMode
 {
     Focus,
     Calm
 }
 
-public class GameManager : Singleton<GameManager> 
+/// <summary>
+/// 
+/// TODO:
+/// - (VR)Calibration
+/// - (VR)Detection for focus - idea (squint eyes)
+/// - (VR)Detection for calm - idea (relax eyes)
+/// 
+/// - holiding function
+/// </summary>
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private UIManager uiManager;
     private bool userInterface;
@@ -23,10 +26,11 @@ public class GameManager : Singleton<GameManager>
 
     public UnityAction<ControlMode> OnModeSwitch;
     public UnityAction<bool> OnCharge;
-        
+
     private void Start()
     {
         //Default auto start as Focus mode
+        toggle = true;
         OnModeSwitch?.Invoke(ControlMode.Focus);
 
         //User interface ready protocol
@@ -52,8 +56,13 @@ public class GameManager : Singleton<GameManager>
         // Right click to toggle modes
         if (Input.GetMouseButtonDown(1))
         {
-            toggle = !toggle;
+            OnCharge?.Invoke(charge = false);
 
+            if (Input.GetMouseButton(0))
+                OnCharge?.Invoke(charge = true);
+
+
+            toggle = !toggle;
             if (toggle)
             {
                 OnModeSwitch?.Invoke(ControlMode.Focus);
@@ -67,14 +76,6 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator IEWaitUserInterfaceReady()
     {
-        //do
-        //{
-        //    if (uiManager.CheckUserInterfaceReady())
-        //        break;
-            
-        //    yield return null;
-
-        //}while (true);
         yield return new WaitUntil(() => uiManager.CheckUserInterfaceReady() == true);
         userInterface = true;
     }

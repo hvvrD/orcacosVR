@@ -921,6 +921,14 @@ PrefabInstance:
       propertyPath: barMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4106309965425136616, guid: aafa2e2fb669d4a49ad0c7976307fde3, type: 3}
+      propertyPath: activeIcon
+      value: 
+      objectReference: {fileID: -1068293198, guid: 8531d976d2866044585b4fde78568fcc, type: 3}
+    - target: {fileID: 4106309965425136616, guid: aafa2e2fb669d4a49ad0c7976307fde3, type: 3}
+      propertyPath: inactiveIcon
+      value: 
+      objectReference: {fileID: 1328926114, guid: 8531d976d2866044585b4fde78568fcc, type: 3}
     - target: {fileID: 6753061416888697555, guid: aafa2e2fb669d4a49ad0c7976307fde3, type: 3}
       propertyPath: m_Name
       value: CalmContent

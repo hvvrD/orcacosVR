@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class BarLogic : MonoBehaviour
@@ -18,7 +16,9 @@ public class BarLogic : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private Image contentBar;
     [SerializeField] private Image contentIcon;
+    [SerializeField] private Image contentIconActive;
     [SerializeField] private TextMeshProUGUI[] contentText;
+    [SerializeField] private AnimationCurve curve;
 
     private bool isActive;
     private float chargeAddRate = 0.01f;
@@ -32,9 +32,13 @@ public class BarLogic : MonoBehaviour
         GameManager.Instance.OnModeSwitch += SetActive;
         GameManager.Instance.OnCharge += SetCharge;
 
+        //Init setup
         IsReady = false;
         chargeValue = chargeMaxValue;
-        StartCoroutine(IEDecharge(true));
+        contentIcon.sprite = inactiveIcon;
+        contentIconActive.sprite = activeIcon;
+        StartCoroutine(IESetCharge(inactiveIcon, chargeAddRate, -chargeAddValue,
+            () => chargeValue >= 0, true));
     }
 
     private void OnDestroy()
@@ -48,12 +52,14 @@ public class BarLogic : MonoBehaviour
         if (charge && isActive)
         {
             StopAllCoroutines();
-            StartCoroutine(IESetCharge());
+            StartCoroutine(IESetCharge(activeIcon, chargeAddRate, chargeAddValue,
+                () => chargeValue <= chargeMaxValue));
         }
         else
         {
             StopAllCoroutines();
-            StartCoroutine(IEDecharge());
+            StartCoroutine(IESetCharge(inactiveIcon, chargeAddRate, -chargeAddValue,
+                () => chargeValue >= 0));
         }
     }
 
@@ -62,30 +68,18 @@ public class BarLogic : MonoBehaviour
         isActive = mode == barMode;
     }
 
-    private IEnumerator IESetCharge()
+    private IEnumerator IESetCharge(Sprite icon, float rate, int add, Func<bool> condition,
+        bool isStart = false)
     {
-        //Debug.Log($"{this} - Spirit bomb de-charge");
-        WaitForSeconds wfs = new WaitForSeconds(chargeAddRate);
-        do
-        {
-            yield return wfs;
-            SetBar(chargeValue);
-            chargeValue += chargeAddValue;
-        }
-        while (chargeValue <= chargeMaxValue);
-    }
+        WaitForSeconds wfs = new WaitForSeconds(rate);
 
-    private IEnumerator IEDecharge(bool isStart = false)
-    {
-        //Debug.Log($"{this} - Spirit bomb charge");
-        WaitForSeconds wfs = new WaitForSeconds(chargeAddRate);
         do
         {
             yield return wfs;
             SetBar(chargeValue);
-            chargeValue -= chargeAddValue;
+            chargeValue += add;
         }
-        while (chargeValue >= 0);
+        while (condition());
 
         if (isStart)
             IsReady = true;
@@ -95,6 +89,6 @@ public class BarLogic : MonoBehaviour
     {
         chargeValue = value;
         contentBar.fillAmount = chargeValue / (float)chargeMaxValue;
-        //Array.ForEach(contentText, x => x.text = chargeValue.ToString());
+        contentIconActive.color = new Color(1, 1, 1, contentBar.fillAmount);
     }
 }
