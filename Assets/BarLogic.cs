@@ -8,7 +8,6 @@ public class BarLogic : MonoBehaviour
 {
     [Header("Mode - require inspector setup")]
     [SerializeField] private ControlMode barMode;
-    
 
     [Header("Asset")]
     [SerializeField] private Sprite inactiveIcon;
@@ -44,11 +43,11 @@ public class BarLogic : MonoBehaviour
         //Init setup
         IsReady = false;
         chargeValue = chargeMaxValue;
-        contentBar.color = barColour;
         contentIcon.sprite = inactiveIcon;
         contentIconActive.sprite = activeIcon;
+        contentBar.color = barColour;
         Array.ForEach(contentText, text => text.text = barMode.ToString());
-        
+
         if (!isCurve)
             StartCoroutine(IESetCharge(chargeAddRate, -chargeAddValue, () => chargeValue >= 0, true));
         else
@@ -58,20 +57,20 @@ public class BarLogic : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.Instance.OnModeSwitch -= SetActive;
-        GameManager.Instance.OnCharge -= !isCurve ? SetCharge: SetChargeCurve;
+        GameManager.Instance.OnCharge -= !isCurve ? SetCharge : SetChargeCurve;
     }
 
     private void SetCharge(bool charge)
     {
         if (charge && isActive)
         {
-            Debug.Log($"{name}, charge");
+            //Debug.Log($"{name}, charge");
             StopAllCoroutines();
             StartCoroutine(IESetCharge(chargeAddRate, chargeAddValue, () => chargeValue <= chargeMaxValue));
         }
         else
         {
-            Debug.Log($"{name}, de-charge");
+            //Debug.Log($"{name}, de-charge");
             StopAllCoroutines();
             StartCoroutine(IESetCharge(chargeAddRate, -chargeAddValue, () => chargeValue >= 0));
         }
@@ -81,13 +80,13 @@ public class BarLogic : MonoBehaviour
     {
         if (charge && isActive)
         {
-            Debug.Log($"{name}, charge");
+            //Debug.Log($"{name}, charge");
             StopAllCoroutines();
             StartCoroutine(IESetChargeCurve(chargeAddRateCurve, 1, () => chargeValueCurve < chargeMaxValue));
         }
-        else //if (chargeValueF > 0)
+        else
         {
-            Debug.Log($"{name}, de-charge");
+            //Debug.Log($"{name}, de-charge");
             StopAllCoroutines();
             StartCoroutine(IESetChargeCurve(chargeAddRateCurve, -1, () => chargeValueCurve > 0));
         }
