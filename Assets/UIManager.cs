@@ -1,8 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject loading;
     [SerializeField] private BarLogic[] bars;
+
+    public void SetLoading(bool isLoading)
+    {
+        loading.SetActive(isLoading);
+    }
 
     public bool CheckUserInterfaceReady()
     {

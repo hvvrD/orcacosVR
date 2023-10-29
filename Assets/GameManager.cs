@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
         OnModeSwitch?.Invoke(ControlMode.Focus);
 
         //User interface ready protocol
-        userInterface = false;
+        uiManager.SetLoading(!(userInterface = false));
         StartCoroutine(IEWaitUserInterfaceReady());
     }
 
@@ -104,6 +104,6 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitUntil(() => uiManager.CheckUserInterfaceReady() == true);
 
         Debug.Log("User interface is ready");
-        userInterface = true;
+        uiManager.SetLoading(!(userInterface = true));
     }
 }

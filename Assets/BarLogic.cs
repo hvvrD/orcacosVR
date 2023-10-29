@@ -20,6 +20,7 @@ public class BarLogic : MonoBehaviour
     [SerializeField] private Image contentIcon;
     [SerializeField] private Image contentIconActive;
     [SerializeField] private TextMeshProUGUI[] contentText;
+    [SerializeField] private GameObject inactiveIndicator;
     //Should be private
     [SerializeField] private bool isActive;
     [SerializeField] private int chargeAddValue = 1;
@@ -104,6 +105,7 @@ public class BarLogic : MonoBehaviour
     private void SetActive(ControlMode mode)
     {
         isActive = mode == barMode;
+        inactiveIndicator.SetActive(!isActive);
     }
 
     private IEnumerator IESetCharge(float rate, int add, Func<bool> condition, bool isStart = false)
