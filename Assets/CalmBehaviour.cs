@@ -2,7 +2,7 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 
 /// <summary>
-/// http://feel-docs.moremountains.com/screen-shakes.html#how-to-setup-a-regular-non-cinemachine-camera-shake
+/// http://feel-docs.moremountains.com/screen-shakes.html#how-to-setup-a-camera-zoom-feedback
 /// </summary>
 [RequireComponent(typeof(BarLogic))]
 public class CalmBehaviour : MonoBehaviour
