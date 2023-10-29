@@ -8,12 +8,16 @@ public class CharacterMove : MonoBehaviour
 {
     private Vector3 charVelocity;
     private float charSpeed = 100;
+    private CharacterController charController;
+
     private float charJumpHeight = 1;
     private float gravity = 9;
-    private CharacterController charController;
+    private float leviosaPower = 12;
 
     private Vector3 charRotation;
     private float sensitivity = 2f;
+
+    public bool IsLeviosa { get; set; } = false;
 
     private void Start()
     {
@@ -57,7 +61,19 @@ public class CharacterMove : MonoBehaviour
     private void SetMoveAxis(Vector3 move)
     {
         move = transform.TransformDirection(move);
-        move.y = 0;
+
+        if (IsLeviosa)
+        {
+            move.y += gravity * leviosaPower * Time.deltaTime;
+        }
+        else if (charController.isGrounded && charVelocity.y < 0)
+        {
+            move.y = 0;
+        }
+        else
+        {
+            move.y = -gravity;
+        }
 
         charController.Move(move * Time.deltaTime * charSpeed);
     }

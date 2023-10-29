@@ -46,6 +46,7 @@ public class BarLogic : MonoBehaviour
 
     public bool IsReady { get; private set; }
     public UnityAction OnCharged;
+    public UnityAction OnPurgatory;
     public UnityAction OnDepleted;
 
     private void Start()
@@ -111,6 +112,7 @@ public class BarLogic : MonoBehaviour
     private IEnumerator IESetCharge(float rate, int add, Func<bool> condition, bool isStart = false)
     {
         WaitForSeconds wfs = new WaitForSeconds(rate);
+        OnPurgatory?.Invoke();
 
         do
         {
@@ -136,6 +138,7 @@ public class BarLogic : MonoBehaviour
         float t;
         float curveT;
         time = 0;
+        OnPurgatory?.Invoke();
 
         do
         {

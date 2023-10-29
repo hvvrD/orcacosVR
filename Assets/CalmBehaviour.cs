@@ -8,24 +8,33 @@ using UnityEngine;
 public class CalmBehaviour : MonoBehaviour
 {
     [SerializeField] private MMF_Player mmfPlayer;
+    [SerializeField] private CharacterMove character;
     private BarLogic bar;
 
     private void Start()
     {
         bar = GetComponent<BarLogic>();
-        bar.OnCharged += SetCalm;
-
         mmfPlayer.Initialization();
+
+        bar.OnCharged += SetCalm;
+        bar.OnPurgatory += SetPanic;
     }
 
     private void OnDestroy()
     {
         bar.OnCharged -= SetCalm;
+        bar.OnPurgatory -= SetPanic;
     }
 
     private void SetCalm()
     {
-        Debug.Log("Run calm");
         mmfPlayer.PlayFeedbacks();
+        character.IsLeviosa = true;
+    }
+
+    private void SetPanic()
+    {
+        mmfPlayer.StopFeedbacks();
+        character.IsLeviosa = false;
     }
 }
