@@ -10,12 +10,10 @@ public enum ControlMode
 
 /// <summary>
 /// 
-/// TODO:
+/// future TODO:
 /// - (VR)Calibration
 /// - (VR)Detection for focus - idea (squint eyes)
 /// - (VR)Detection for calm - idea (relax eyes)
-/// 
-/// - holiding function
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {

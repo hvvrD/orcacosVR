@@ -1494,7 +1494,7 @@ MonoBehaviour:
     - rid: 5254913076912455681
       type: {class: MMF_CameraZoom, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
       data:
-        Active: 0
+        Active: 1
         UniqueID: -1755895893
         Label: Camera Zoom
         ChannelMode: 0
@@ -1595,7 +1595,7 @@ MonoBehaviour:
     - rid: 5254913076912455686
       type: {class: MMF_CameraFieldOfView, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 1568459434
         Label: Field of View
         ChannelMode: 0
@@ -1678,7 +1678,7 @@ MonoBehaviour:
             outWeight: 0
           - serializedVersion: 3
             time: 0.5
-            value: 1
+            value: 0.5023585
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -3357,7 +3357,7 @@ MonoBehaviour:
           CooldownDuration: 0
           InterruptsOnStop: 1
           NumberOfRepeats: 0
-          RepeatForever: 0
+          RepeatForever: 1
           DelayBetweenRepeats: 1
           MMFeedbacksDirectionCondition: 0
           PlayDirection: 0
