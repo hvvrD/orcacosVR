@@ -482,7 +482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3030614635316251613}
-  - component: {fileID: 4106309965425136616}
+  - component: {fileID: -7069076465701672204}
   m_Layer: 5
   m_Name: BarContent
   m_TagString: Untagged
@@ -513,7 +513,7 @@ RectTransform:
   m_AnchoredPosition: {x: -800, y: 0}
   m_SizeDelta: {x: 200, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4106309965425136616
+--- !u!114 &-7069076465701672204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -538,12 +538,14 @@ MonoBehaviour:
   isActive: 0
   chargeAddValue: 1
   chargeMaxValue: 100
+  chargeMinValue: 0
   chargeAddRate: 0.01
-  chargeAddRateCurve: 0.02
   chargeValue: 0
+  chargeMaxValueCurve: 100
+  chargeMinValueCurve: 0
+  chargeAddRateCurve: 0.02
   chargeValueCurve: 0
   isCurve: 1
-  isYieldNull: 0
   curve:
     serializedVersion: 2
     m_Curve:
